@@ -1,65 +1,122 @@
+import { compileMDX } from "next-mdx-remote/rsc";
+import { ProgressiveBlur } from "@/components/ui/progressive-blur";
+import { BlurFade } from "@/components/ui/blur-fade";
+import NotesList from "@/components/NotesList";
 import Image from "next/image";
+import profileImage from "@/public/profile-img.jpg";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { TypingAnimation } from "@/components/ui/typing-animation";
+import { getVaultFileTree, getFileContent } from "@/lib/obsidian";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+interface NoteFrontmatter {
+    createdAt: string;
+    title: string;
+}
+
+const SOCIALS = [
+    {
+        icon: Linkedin,
+        link: "https://www.linkedin.com/in/jordan-romagnoli",
+    },
+    {
+        icon: Github,
+        link: "https://github.com/JordanRomagnoli",
+    },
+    {
+        icon: Mail,
+        link: "mailto:jordanromagnoli1999@gmail.com",
+    },
+];
+
+export default async function Home() {
+    const files = await getVaultFileTree();
+
+    const notes = await Promise.all(
+        files.map(async (file) => {
+            const { content: rawContent, frontmatter } = await getFileContent(
+                file.path,
+            );
+
+            const { content } = await compileMDX<NoteFrontmatter>({
+                source: rawContent,
+                options: {
+                    parseFrontmatter: false,
+                },
+            });
+
+            return {
+                content,
+                ...(frontmatter as unknown as NoteFrontmatter),
+            };
+        }),
+    );
+
+    const sortedNotes = notes.sort((a, b) => {
+        return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+    });
+
+    return (
+        <div className="min-h-screen w-full p-6 pt-16 md:pt-48">
+            <div className="max-w-4xl mx-auto">
+                <div className="w-full mb-12 flex">
+                    <div className="size-20 md:size-25 lg:size-35 border border-cyan-500 rounded-full overflow-hidden z-10">
+                        <Image
+                            src={profileImage}
+                            alt="profile image"
+                            className="w-full h-full object-cover object-center"
+                        />
+                    </div>
+                    <div className="pl-6 md:pl-9">
+                        <h1 className="text-3xl md:text-5xl font-semibold text-gray-700">
+                            Jordan Romagnoli
+                        </h1>
+                        <TypingAnimation
+                            as="h2"
+                            typeSpeed={80}
+                            className="text-lg sm:text-xl md:text-2xl italic text-cyan-600 font-mono"
+                            loop={false}
+                            words={["Jr Web Developer"]}
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-col md:flex-row md:gap-4">
+                    <div className="md:flex-1 mb-16 md:mb-0 md:h-125 flex flex-col gap-6 align-items-center">
+                        <p className="flex-1 max-w-md leading-relaxed tracking-wide text-xs md:text-sm text-muted-foreground">
+                            Ciao 👋, sono <strong>Jordan</strong>.
+                            <br />
+                            <br />
+                            Sviluppatore Front-end con un anno di esperienza
+                            alle spalle. Questo spazio è il mio{" "}
+                            <strong>diario di bordo</strong>: documento i miei
+                            progressi, le nuove tecnologie che studio e il
+                            percorso verso la mia prossima sfida lavorativa.
+                        </p>
+                        <div className="flex items-center gap-6">
+                            {SOCIALS.map((icon, idx) => (
+                                <a
+                                    key={idx}
+                                    href={icon.link}
+                                    target="_blank"
+                                    className=" flex items-center justify-center bg-gray-300/25 text-muted-foreground p-1 hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 transition-all duration-75 hover:shadow-md hover:shadow-cyan-500/25"
+                                >
+                                    <icon.icon className="size-4 md:size-5" />
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="md:flex-1 h-115 md:h-125 grow relative rounded-3xl border border-gray overflow-hidden shadow-lg bg-gray-50 z-10">
+                        <BlurFade className="h-full overflow-auto space-y-4 px-4 no-scrollbar">
+                            <NotesList notes={sortedNotes} />
+                            <div className="w-full h-20"></div>
+                        </BlurFade>
+
+                        <ProgressiveBlur height="25%" position="bottom" />
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    );
 }
