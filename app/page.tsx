@@ -69,7 +69,7 @@ export default async function Home() {
                         />
                     </div>
                     <div className="pl-6 md:pl-9">
-                        <h1 className="text-3xl md:text-5xl font-semibold text-gray-700">
+                        <h1 className="text-2xl md:text-5xl font-semibold text-gray-700">
                             Jordan Romagnoli
                         </h1>
                         <TypingAnimation
