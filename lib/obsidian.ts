@@ -47,7 +47,7 @@ export async function getFileContent(filePath: string) {
     );
 
     if (Array.isArray(data) || !("content" in data)) {
-        throw new Error(`Path "${filePath}" is not a file.`);
+        throw new Error(`"${filePath}" is not a file.`);
     }
 
     const fileData = data as Extract<

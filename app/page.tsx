@@ -4,9 +4,11 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import NotesList from "@/components/NotesList";
 import Image from "next/image";
 import profileImage from "@/public/profile-img.jpg";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, MailIcon } from "lucide-react";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { getVaultFileTree, getFileContent } from "@/lib/obsidian";
+import ButtonCopyMail from "@/components/ButtonCopyMail";
+import { mdxComponents } from "@/components/mdx-components";
 
 interface NoteFrontmatter {
     createdAt: string;
@@ -25,10 +27,6 @@ const SOCIALS = [
         icon: Github,
         link: "https://github.com/JordanRomagnoli",
     },
-    {
-        icon: Mail,
-        link: "mailto:jordanromagnoli1999@gmail.com",
-    },
 ];
 
 export default async function Home() {
@@ -42,6 +40,7 @@ export default async function Home() {
 
             const { content } = await compileMDX<NoteFrontmatter>({
                 source: rawContent,
+                components: mdxComponents,
                 options: {
                     parseFrontmatter: false,
                 },
@@ -92,9 +91,10 @@ export default async function Home() {
                             <br />
                             Sviluppatore Front-end con un anno di esperienza
                             alle spalle. Questo spazio è il mio{" "}
-                            <strong>diario di bordo</strong>: documento i miei
-                            progressi, le nuove tecnologie che studio e il
-                            percorso verso la mia prossima sfida lavorativa.
+                            <strong>digital garden</strong>: condivido e
+                            documento i miei progressi nello studio e
+                            soprattutto il percorso verso la mia prossima sfida
+                            lavorativa.
                         </p>
                         <div className="flex items-center gap-6">
                             {SOCIALS.map((icon, idx) => (
@@ -102,11 +102,14 @@ export default async function Home() {
                                     key={idx}
                                     href={icon.link}
                                     target="_blank"
-                                    className=" flex items-center justify-center bg-gray-300/25 text-muted-foreground p-1 hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 transition-all duration-75 hover:shadow-md hover:shadow-cyan-500/25"
+                                    className="flex items-center justify-center bg-gray-300/25 text-muted-foreground p-1 hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 transition-all duration-75 hover:shadow-md hover:shadow-cyan-500/25 active:scale-95"
                                 >
                                     <icon.icon className="size-4 md:size-5" />
                                 </a>
                             ))}
+                            <ButtonCopyMail email="jordanromagnoli1999@gmail.com">
+                                <MailIcon className="size-4 md:size-5" />
+                            </ButtonCopyMail>
                         </div>
                     </div>
 
