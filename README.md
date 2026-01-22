@@ -1,6 +1,6 @@
-# Logbook
+# Digital Garden
 
-Welcome to the repository of my **logbook**.
+Welcome to the repository of my **digital garden**.
 This application is built with **Next.js** and uses **Obsidian** as a Headless CMS, synchronized via GitHub.
 
 ## 🚀 How it works
