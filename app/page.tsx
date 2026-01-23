@@ -85,7 +85,7 @@ export default async function Home() {
                 </div>
                 <div className="flex flex-col md:flex-row md:gap-4">
                     <div className="md:flex-1 mb-16 md:mb-0 md:h-125 flex flex-col gap-6 align-items-center">
-                        <p className="flex-1 max-w-md leading-relaxed tracking-wide text-xs md:text-sm text-muted-foreground">
+                        <p className="flex-1 max-w-[90%] leading-relaxed tracking-wide text-xs md:text-sm text-muted-foreground">
                             Ciao 👋, sono <strong>Jordan</strong>.
                             <br />
                             <br />
