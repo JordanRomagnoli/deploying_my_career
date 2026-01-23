@@ -17,9 +17,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:300",
+    ),
     title: "Jordan Romagnoli | Digital Garden",
     description:
-        "Digital garden di Jordan Romagnoli. Qui documento il mio percorso come sviluppatore web, condividendo progetti, risorse e tutto ciò che imparo lungo la strada verso la mia prossima sfida professionale.",
+        "Digital garden di Jordan Romagnoli. Qui documento il mio percorso come sviluppatore web, condividendo progetti, risorse e soprattutto il percorso verso la mia prossima sfida professionale.",
     icons: {
         icon: [
             { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
         title: "Jordan Romagnoli | Web Developer",
         description:
             "Il mio Digital Garden. Esplora i miei progetti, le mie note di studio e il mio percorso nello sviluppo web.",
-        images: ["/laptop-screenshot.png"],
+        images: ["/opengraph-preview.png"],
     },
 };
 
