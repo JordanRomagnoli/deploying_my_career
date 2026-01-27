@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Toaster } from "sonner";
 
@@ -51,13 +52,20 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="it" className="no-scrollbar">
+        <html lang="it" className="no-scrollbar" suppressHydrationWarning>
             <body
                 className={`${spaceMono.variable} ${dmSans.variable} antialiased`}
             >
-                <Toaster position="top-center" />
-                {children}
-                <DotPattern className="-z-10 opacity-30" />
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <Toaster position="top-center" />
+                    {children}
+                    <DotPattern className="-z-10 opacity-30" />
+                </ThemeProvider>
             </body>
         </html>
     );

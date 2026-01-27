@@ -9,6 +9,7 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 import { getVaultFileTree, getFileContent } from "@/lib/obsidian";
 import ButtonCopyMail from "@/components/ButtonCopyMail";
 import { mdxComponents } from "@/components/mdx-components";
+import { ModeToggle } from "@/components/mode-toggle";
 
 interface NoteFrontmatter {
     createdAt: string;
@@ -62,30 +63,33 @@ export default async function Home() {
     return (
         <div className="min-h-screen w-full p-6 pt-16 md:pt-48">
             <div className="max-w-4xl mx-auto">
-                <div className="w-full mb-12 flex">
-                    <div className="size-20 md:size-25 lg:size-35 border border-cyan-500 rounded-full overflow-hidden z-10">
-                        <Image
-                            src={profileImage}
-                            alt="profile image"
-                            className="w-full h-full object-cover object-center"
-                        />
+                <div className="flex justify-between mb-12">
+                    <div className="w-full  flex">
+                        <div className="size-20 md:size-25 lg:size-35 border-2 border-cyan-500 rounded-full overflow-hidden z-10">
+                            <Image
+                                src={profileImage}
+                                alt="profile image"
+                                className="w-full h-full object-cover object-center"
+                            />
+                        </div>
+                        <div className="pl-6 md:pl-9">
+                            <h1 className="text-2xl md:text-5xl font-semibold text-gray-700 dark:text-white">
+                                Jordan Romagnoli
+                            </h1>
+                            <TypingAnimation
+                                as="h2"
+                                typeSpeed={80}
+                                className="text-lg sm:text-xl md:text-2xl italic text-cyan-600 font-mono"
+                                loop={false}
+                                words={["Jr Web Developer"]}
+                            />
+                        </div>
                     </div>
-                    <div className="pl-6 md:pl-9">
-                        <h1 className="text-2xl md:text-5xl font-semibold text-gray-700">
-                            Jordan Romagnoli
-                        </h1>
-                        <TypingAnimation
-                            as="h2"
-                            typeSpeed={80}
-                            className="text-lg sm:text-xl md:text-2xl italic text-cyan-600 font-mono"
-                            loop={false}
-                            words={["Jr Web Developer"]}
-                        />
-                    </div>
+                    <ModeToggle />
                 </div>
                 <div className="flex flex-col md:flex-row md:gap-4">
                     <div className="md:flex-1 mb-16 md:mb-0 md:h-125 flex flex-col gap-6 align-items-center">
-                        <p className="flex-1 max-w-[90%] leading-relaxed tracking-wide text-xs md:text-sm text-muted-foreground">
+                        <p className="flex-1 max-w-[90%] leading-relaxed tracking-wide text-xs md:text-sm text-muted-foreground dark:text-gray-300">
                             Ciao 👋, sono <strong>Jordan</strong>.
                             <br />
                             <br />
@@ -102,7 +106,7 @@ export default async function Home() {
                                     key={idx}
                                     href={icon.link}
                                     target="_blank"
-                                    className="flex items-center justify-center bg-gray-300/25 text-muted-foreground p-1 hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 transition-all duration-75 hover:shadow-md hover:shadow-cyan-500/25 active:scale-95"
+                                    className="flex items-center justify-center bg-gray-300/25 dark:bg-[#1E1E1E] text-muted-foreground dark:text-gray-400 p-1 hover:bg-cyan-500/25 dark:hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 dark:hover:text-cyan-500 dark:active:text-cyan-500 transition-all duration-75 hover:shadow-md hover:shadow-cyan-500/25 active:scale-95"
                                 >
                                     <icon.icon className="size-4 md:size-5" />
                                 </a>
@@ -113,7 +117,7 @@ export default async function Home() {
                         </div>
                     </div>
 
-                    <div className="md:flex-1 h-115 md:h-125 grow relative rounded-3xl border border-gray overflow-hidden shadow-lg bg-gray-50 z-10">
+                    <div className="md:flex-1 h-115 md:h-125 grow relative rounded-3xl border dark:border-gray-300/20 overflow-hidden shadow-lg bg-gray-50 z-10 dark:bg-[#1E1E1E]">
                         <BlurFade className="h-full overflow-auto space-y-4 px-4 no-scrollbar">
                             <NotesList notes={sortedNotes} />
                             <div className="w-full h-20"></div>

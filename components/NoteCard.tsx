@@ -9,18 +9,18 @@ export type Note = {
 
 const NoteCard = ({ createdAt, title = "", content }: Note) => {
     return (
-        <Card className="w-full  border-cyan-500/25 mt-4 bg-cyan-100/10 shadow-sm">
+        <Card className="w-full  border-cyan-500/25 mt-4 bg-cyan-100/10 shadow-sm dark:border-cyan-400/25">
             <CardHeader>
-                <span className="text-start font-normal text-xs text-muted-foreground">
+                <span className="text-start font-normal text-xs text-muted-foreground dark:text-gray-400">
                     {createdAt}
                 </span>
 
-                <h3 className="text-xl md:text-2xl font-semibold text-cyan-700 font-mono">
+                <h3 className="text-xl md:text-2xl font-semibold text-cyan-600 dark:text-cyan-500 font-mono">
                     {title.trim()}
                 </h3>
             </CardHeader>
             <CardContent>
-                <span className="prose whitespace-pre-line text-cyan-600 text-xs md:text-sm">
+                <span className="prose whitespace-pre-line text-cyan-600 dark:text-cyan-500 text-xs md:text-sm">
                     {content}
                 </span>
             </CardContent>
