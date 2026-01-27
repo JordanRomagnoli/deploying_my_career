@@ -9,7 +9,7 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 import { getVaultFileTree, getFileContent } from "@/lib/obsidian";
 import ButtonCopyMail from "@/components/ButtonCopyMail";
 import { mdxComponents } from "@/components/mdx-components";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggle } from "@/components/ModeToggle";
 
 interface NoteFrontmatter {
     createdAt: string;
@@ -64,22 +64,22 @@ export default async function Home() {
         <div className="min-h-screen w-full p-6 pt-16 md:pt-48">
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-between mb-12">
-                    <div className="w-full  flex">
-                        <div className="size-20 md:size-25 lg:size-35 border-2 border-cyan-500 rounded-full overflow-hidden z-10">
+                    <div className="w-full flex">
+                        <div className="size-18 sm:size-20 md:size-25 lg:size-35 border-2 border-cyan-500 rounded-full overflow-hidden z-10">
                             <Image
                                 src={profileImage}
                                 alt="profile image"
                                 className="w-full h-full object-cover object-center"
                             />
                         </div>
-                        <div className="pl-6 md:pl-9">
-                            <h1 className="text-2xl md:text-5xl font-semibold text-gray-700 dark:text-white">
+                        <div className="pl-3 sm:pl-6 md:pl-9">
+                            <h1 className="text-xl sm:text-3xl md:text-5xl font-semibold text-gray-700 dark:text-white">
                                 Jordan Romagnoli
                             </h1>
                             <TypingAnimation
                                 as="h2"
                                 typeSpeed={80}
-                                className="text-lg sm:text-xl md:text-2xl italic text-cyan-600 font-mono"
+                                className="text-[15px] sm:text-xl md:text-2xl italic text-cyan-600 dark:text-cyan-500 font-mono"
                                 loop={false}
                                 words={["Jr Web Developer"]}
                             />
@@ -106,7 +106,7 @@ export default async function Home() {
                                     key={idx}
                                     href={icon.link}
                                     target="_blank"
-                                    className="flex items-center justify-center bg-gray-300/25 dark:bg-[#1E1E1E] text-muted-foreground dark:text-gray-400 p-1 hover:bg-cyan-500/25 dark:hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 dark:hover:text-cyan-500 dark:active:text-cyan-500 transition-all duration-75 hover:shadow-md hover:shadow-cyan-500/25 active:scale-95"
+                                    className="flex items-center justify-center bg-gray-300/25 dark:bg-[#1E1E1E] text-muted-foreground dark:text-gray-400 p-1 hover:bg-cyan-500/25 dark:hover:bg-cyan-500/25 rounded hover:text-cyan-500 active:text-cyan-500 dark:hover:text-cyan-500 dark:active:text-cyan-500 transition-all duration-75  active:scale-95"
                                 >
                                     <icon.icon className="size-4 md:size-5" />
                                 </a>

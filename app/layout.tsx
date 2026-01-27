@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Toaster } from "sonner";
+import ThemedSonner from "@/components/ThemedSonner";
 
 const spaceMono = Space_Mono({
     variable: "--font-space-mono",
@@ -62,7 +63,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <Toaster position="top-center" />
+                    <ThemedSonner />
                     {children}
                     <DotPattern className="-z-10 opacity-30" />
                 </ThemeProvider>
